@@ -26,7 +26,7 @@ function Header() {
               className="text-white bg-zinc-700 outline-none rounded-l-xl px-3 w-3/4 h-12"
             />
             <div className="bg-zinc-700 h-12 items-center justify-center flex w-32 rounded-r-xl">
-              <button className="bg-teal-500 h-10 w-24 rounded-xl">
+              <button className="bg-teal-500 hover:bg-teal-600 transition-all h-10 w-24 rounded-xl">
                 Search
               </button>
             </div>
@@ -62,25 +62,27 @@ function Header() {
         </div>
         <ul className="text-center items-center justify-center hidden sm:flex">
           <li className="w-20 whitespace-pre-line sm:ml-[2.5%] lg:ml-[6%] xl:ml-[8%] cursor-pointer h-max hover:underline underline-offset-4 decoration-teal-500">
-            Laptopy i komputery
+            <Link href={"/laptopy-i-komputery"}>Laptopy i komputery</Link>
           </li>
           <li className="w-24 whitespace-pre-line sm:ml-[2.5%] lg:ml-[6%] xl:ml-[8%] cursor-pointer h-max hover:underline underline-offset-4 decoration-teal-500">
-            Smartfony i smartwatche
+            <Link href={"/smartfony-i-smartwatche"}>
+              Smartfony i smartwatche
+            </Link>
           </li>
           <li className="w-20 whitespace-pre-line sm:ml-[2.5%] lg:ml-[6%] xl:ml-[8%] cursor-pointer h-max hover:underline underline-offset-4 decoration-teal-500">
-            Gaming i streaming
+            <Link href={"/gaming-i-streaming"}>Gaming i streaming</Link>
           </li>
           <li className="w-24 whitespace-pre-line sm:ml-[2.5%] lg:ml-[6%] xl:ml-[8%] cursor-pointer h-max hover:underline underline-offset-4 decoration-teal-500">
-            Podzespoły komputerowe
+            <Link href={"/podzespoly-komputerowe"}>Podzespoły komputerowe</Link>
           </li>
           <li className="w-20 whitespace-pre-line sm:ml-[2.5%] lg:ml-[6%] xl:ml-[8%] cursor-pointer h-max hover:underline underline-offset-4 decoration-teal-500">
-            Urządzenia peryferyjne
+            <Link href={"/urzadzenia-peryferyjne"}>Urządzenia peryferyjne</Link>
           </li>
           <li className="w-20 whitespace-pre-line sm:ml-[2.5%] lg:ml-[6%] xl:ml-[8%] cursor-pointer h-max hover:underline underline-offset-4 decoration-teal-500">
-            TV i audio
+            <Link href={"/TV-i-audio"}>TV i audio</Link>
           </li>
           <li className="w-20 whitespace-pre-line sm:ml-[2.5%] lg:ml-[6%] xl:ml-[8%] cursor-pointer h-max hover:underline underline-offset-4 decoration-teal-500">
-            Akcesoria
+            <Link href={"/akcesoria"}>Akcesoria</Link>
           </li>
         </ul>
       </div>
