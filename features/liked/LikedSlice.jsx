@@ -1,25 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit";
+let initalLikedProds = JSON.parse(localStorage.getItem("shopList"));
+
+if (initalLikedProds === null) {
+  initalLikedProds = [];
+}
 
 const initialState = {
-  value: 0,
+  likedIDs: initalLikedProds,
 };
 
-export const counterSlice = createSlice({
-  name: "counter",
+export const likedSlice = createSlice({
+  name: "likedProds",
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
+    addToLiked: (state, action) => {
+      if (state.likedIDs.includes(action.payload)) {
+        return;
+      } else {
+        state.likedIDs = state.likedIDs.concat(action.payload);
+        localStorage.setItem("shopList", JSON.stringify(state.likedIDs));
+      }
     },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
+    removeFromLiked: (state, action) => {
+      const newIDs = state.likedIDs.filter((id) => id !== action.payload);
+      state.likedIDs = newIDs;
+      localStorage.setItem("shopList", JSON.stringify(state.likedIDs));
     },
   },
 });
 
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export const { addToLiked, removeFromLiked } = likedSlice.actions;
 
-export default counterSlice.reducer;
+export default likedSlice.reducer;

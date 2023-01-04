@@ -1,13 +1,22 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaUserAlt,
   FaHeart,
   FaBalanceScale,
   FaShoppingCart,
 } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 function Header() {
+  const likedID = useSelector((state) => state.likedProds.likedIDs);
+  const [likedProds, setLikedProds] = useState("");
+
+  useEffect(() => {
+    setLikedProds(JSON.parse(localStorage.getItem("shopList")).length);
+  }, [likedID]);
+
   return (
     <>
       <div className="bg-zinc-900 text-white w-full h-20 flex">
@@ -42,8 +51,15 @@ function Header() {
             <span className="lg:ml-[8%] 2xl:ml-[10%] ">
               <FaBalanceScale className="text-4xl cursor-pointer" />
             </span>
-            <span className="lg:ml-[8%] 2xl:ml-[10%] ">
-              <FaHeart className="text-4xl cursor-pointer" />
+            <span className="lg:ml-[8%] 2xl:ml-[10%] relative">
+              <Link href={"/polubione"}>
+                <FaHeart className="text-4xl cursor-pointer" />
+                {likedProds > 0 ? (
+                  <div className="w-6 h-6 rounded-full bg-red-500 text-lg text-center -top-2 -right-3 absolute flex justify-center items-center">
+                    {likedProds > 9 ? "9" : likedProds}
+                  </div>
+                ) : null}
+              </Link>
             </span>
             <span className="lg:ml-[8%] 2xl:ml-[10%] ">
               <FaShoppingCart className="text-4xl cursor-pointer" />

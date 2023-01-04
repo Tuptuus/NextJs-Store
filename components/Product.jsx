@@ -1,15 +1,16 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiHeart } from "react-icons/fi";
 import { FaHeart, FaCartPlus } from "react-icons/fa";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
-import { decrement, increment } from "../features/liked/LikedSlice";
+import { addToLiked, removeFromLiked } from "../features/liked/LikedSlice";
 
 function Product({ item }) {
-  const count = useSelector((state) => state.counter.value);
+  const likedID = useSelector((state) => state.likedProds.likedIDs);
   const dispatch = useDispatch();
+  const [listOfLikedIDs, setListOfLikedIDs] = useState([]);
   const { Desc, Category, Photo, Price, Quantity, Title, id, ...newItem } =
     item;
 
@@ -18,6 +19,14 @@ function Product({ item }) {
     const value = newItem[key];
     shortDesc.push(` ${key}: ${value}`);
   }
+  useEffect(() => {
+    const likedList = JSON.parse(localStorage.getItem("shopList"));
+    if (likedList === null) {
+      setListOfLikedIDs([]);
+    } else {
+      setListOfLikedIDs(likedList);
+    }
+  }, [likedID]);
   return (
     <>
       <div className="group bg-zinc-700 w-72 rounded-2xl shadow-white hover:shadow-teal-500 shadow-md flex flex-col transition-all">
@@ -30,10 +39,17 @@ function Product({ item }) {
               height={500}
               className="rounded-t-2xl select-none"
             />
-            <FiHeart
-              onClick={() => dispatch(increment())}
-              className="text-3xl absolute text-black top-0 right-0 mr-1 mt-1 cursor-pointer opacity-0 group-hover:opacity-100 transition-all"
-            />
+            {listOfLikedIDs.includes(id) === false ? (
+              <FiHeart
+                onClick={() => dispatch(addToLiked(id))}
+                className="text-3xl absolute text-black top-0 right-0 mr-1 mt-1 cursor-pointer opacity-0 group-hover:opacity-100 transition-all hover:text-teal-600"
+              />
+            ) : (
+              <FaHeart
+                onClick={() => dispatch(removeFromLiked(id))}
+                className="text-3xl absolute text-black top-0 right-0 mr-1 mt-1 cursor-pointer opacity-0 group-hover:opacity-100 transition-all"
+              />
+            )}
           </div>
           <div className="text-sm flex flex-col">
             <p title={Title} className="text-xl pl-3 font-bold">
@@ -69,12 +85,7 @@ function Product({ item }) {
         </div>
         <div className="flex pb-4 mt-auto pt-4 pl-3 items-center relative">
           <p className="text-xl font-bold">Cena: {Price}</p>
-          <FaCartPlus
-            onClick={() => {
-              console.log(id);
-            }}
-            className="text-3xl absolute right-0 mr-5 cursor-pointer transition-all hover:text-teal-400"
-          />
+          <FaCartPlus className="text-3xl absolute right-0 mr-5 cursor-pointer transition-all hover:text-teal-400" />
         </div>
       </div>
     </>
