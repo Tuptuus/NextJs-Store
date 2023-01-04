@@ -1,11 +1,15 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import React, { use } from "react";
 import Product from "../../components/Product";
 import { db } from "../../firebase-config";
 
 async function getTVAudio() {
   let tvArray = [];
-  const querySnapshot = await getDocs(collection(db, "TVAudio"));
+  const q = query(
+    collection(db, "products"),
+    where("Category", "==", "TVAudio")
+  );
+  const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     tvArray.push({ ...doc.data(), id: doc.id });
   });

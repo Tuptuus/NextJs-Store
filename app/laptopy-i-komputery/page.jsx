@@ -1,12 +1,22 @@
-"use client";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import React, { use } from "react";
 import Product from "../../components/Product";
 import { db } from "../../firebase-config";
 
 async function getLaptops() {
   let laptopsArray = [];
-  const querySnapshot = await getDocs(collection(db, "Laptops"));
+  const q = query(
+    collection(db, "products"),
+    where("Category", "==", "Laptops")
+  );
+  const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     laptopsArray.push({ ...doc.data(), id: doc.id });
   });

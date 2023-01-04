@@ -12,7 +12,7 @@ import {
 
 function Footer() {
   return (
-    <div className=" mt-28 bg-zinc-800 h-52 flex flex-col justify-center">
+    <div className="mt-28 bg-zinc-800 h-52 flex flex-col justify-center">
       <div className="flex border-solid border-zinc-700 border-b-4 pb-8 items-center">
         <div className="w-1/2">
           <div className="w-48 text-4xl font-bold italic text-center flex justify-center">

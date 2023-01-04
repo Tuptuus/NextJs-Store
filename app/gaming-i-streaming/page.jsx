@@ -1,11 +1,15 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import React, { use } from "react";
 import Product from "../../components/Product";
 import { db } from "../../firebase-config";
 
 async function getGaming() {
   let gamingArray = [];
-  const querySnapshot = await getDocs(collection(db, "Gaming"));
+  const q = query(
+    collection(db, "products"),
+    where("Category", "==", "Gaming")
+  );
+  const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     gamingArray.push({ ...doc.data(), id: doc.id });
   });

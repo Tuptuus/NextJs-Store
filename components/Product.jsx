@@ -1,15 +1,22 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { FiHeart } from "react-icons/fi";
 import { FaHeart, FaCartPlus } from "react-icons/fa";
-function Product({ item }) {
-  const { Desc, Photo, Prize, Title, id, ...newItem } = item;
+import Link from "next/link";
+import { useSelector, useDispatch } from "react-redux";
+import { decrement, increment } from "../features/liked/LikedSlice";
 
-  let test = [];
+function Product({ item }) {
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+  const { Desc, Category, Photo, Price, Quantity, Title, id, ...newItem } =
+    item;
+
+  let shortDesc = [];
   for (const key in newItem) {
     const value = newItem[key];
-    test.push(` ${key}: ${value}`);
+    shortDesc.push(` ${key}: ${value}`);
   }
   return (
     <>
@@ -23,34 +30,51 @@ function Product({ item }) {
               height={500}
               className="rounded-t-2xl select-none"
             />
-            <FiHeart className="text-3xl absolute text-black top-0 right-0 mr-1 mt-1 cursor-pointer opacity-0 group-hover:opacity-100 transition-all" />
+            <FiHeart
+              onClick={() => dispatch(increment())}
+              className="text-3xl absolute text-black top-0 right-0 mr-1 mt-1 cursor-pointer opacity-0 group-hover:opacity-100 transition-all"
+            />
           </div>
           <div className="text-sm flex flex-col">
-            <p
-              title={Title}
-              className="text-xl pl-3 overflow-hidden font-bold hover:underline underline-offset-2 cursor-pointer"
-            >
-              {Title.length > 40 ? Title.slice(0, 40) + "..." : Title}
+            <p title={Title} className="text-xl pl-3 font-bold">
+              <span className="hover:underline underline-offset-2 cursor-pointer">
+                <Link href={`/product/${id}`}>
+                  {Title.length > 40 ? Title.slice(0, 40) + "..." : Title}
+                </Link>
+              </span>
             </p>
-            <div title={test} className="pl-3 text-sm">
+            <div title={shortDesc} className="pl-3 text-sm">
               <p>
-                {test[0].length > 40 ? test[0].slice(0, 40) + "..." : test[0]}
+                {shortDesc[0].length > 40
+                  ? shortDesc[0].slice(0, 40) + "..."
+                  : shortDesc[0]}
               </p>
               <p>
-                {test[1].length > 40 ? test[1].slice(0, 40) + "..." : test[1]}
+                {shortDesc[1].length > 40
+                  ? shortDesc[1].slice(0, 40) + "..."
+                  : shortDesc[1]}
               </p>
               <p>
-                {test[2].length > 40 ? test[2].slice(0, 40) + "..." : test[2]}
+                {shortDesc[2].length > 40
+                  ? shortDesc[2].slice(0, 40) + "..."
+                  : shortDesc[2]}
               </p>
               <p>
-                {test[3].length > 40 ? test[3].slice(0, 40) + "..." : test[3]}
+                {shortDesc[3].length > 40
+                  ? shortDesc[3].slice(0, 40) + "..."
+                  : shortDesc[3]}
               </p>
             </div>
           </div>
         </div>
         <div className="flex pb-4 mt-auto pt-4 pl-3 items-center relative">
-          <p className="text-xl font-bold">Cena: {Prize}</p>
-          <FaCartPlus className="text-3xl absolute right-0 mr-5 cursor-pointer" />
+          <p className="text-xl font-bold">Cena: {Price}</p>
+          <FaCartPlus
+            onClick={() => {
+              console.log(id);
+            }}
+            className="text-3xl absolute right-0 mr-5 cursor-pointer transition-all hover:text-teal-400"
+          />
         </div>
       </div>
     </>
