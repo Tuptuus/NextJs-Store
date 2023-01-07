@@ -11,11 +11,24 @@ import { useSelector } from "react-redux";
 
 function Header() {
   const likedID = useSelector((state) => state.likedProds.likedIDs);
+  const cartID = useSelector((state) => state.cartProds.cartIDs);
   const [likedProds, setLikedProds] = useState("");
+  const [cartProds, setCartProds] = useState("");
 
   useEffect(() => {
-    setLikedProds(JSON.parse(localStorage.getItem("shopList")).length);
+    if (JSON.parse(localStorage.getItem("shopList")) == null) {
+      setLikedProds("");
+    } else {
+      setLikedProds(JSON.parse(localStorage.getItem("shopList")).length);
+    }
   }, [likedID]);
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem("cartList")) == null) {
+      setCartProds("");
+    } else {
+      setCartProds(JSON.parse(localStorage.getItem("cartList")).length);
+    }
+  }, [cartID]);
 
   return (
     <>
@@ -61,8 +74,15 @@ function Header() {
                 ) : null}
               </Link>
             </span>
-            <span className="lg:ml-[8%] 2xl:ml-[10%] ">
-              <FaShoppingCart className="text-4xl cursor-pointer" />
+            <span className="lg:ml-[8%] 2xl:ml-[10%] relative">
+              <Link href={"/koszyk"}>
+                <FaShoppingCart className="text-4xl cursor-pointer" />
+                {cartProds > 0 ? (
+                  <div className="w-6 h-6 rounded-full bg-red-500 text-lg text-center -top-2 -right-3 absolute flex justify-center items-center">
+                    {cartProds > 9 ? "9" : cartProds}
+                  </div>
+                ) : null}
+              </Link>
             </span>
             <span className="lg:ml-[8%] 2xl:ml-[10%] ">
               <FaUserAlt className="text-4xl cursor-pointer" />

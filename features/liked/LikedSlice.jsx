@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-let initalLikedProds = JSON.parse(localStorage.getItem("shopList"));
+let initalLikedProds = [];
+if (typeof window !== "undefined") {
+  initalLikedProds = JSON.parse(localStorage.getItem("shopList"));
+}
 
 if (initalLikedProds === null) {
   initalLikedProds = [];

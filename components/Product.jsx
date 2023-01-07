@@ -3,14 +3,18 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { FiHeart } from "react-icons/fi";
 import { FaHeart, FaCartPlus } from "react-icons/fa";
+import { BsCartXFill } from "react-icons/bs";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { addToLiked, removeFromLiked } from "../features/liked/LikedSlice";
+import { addToCart, removeFromCart } from "../features/cart/CartSlice";
 
 function Product({ item }) {
   const likedID = useSelector((state) => state.likedProds.likedIDs);
+  const cartID = useSelector((state) => state.cartProds.cartIDs);
   const dispatch = useDispatch();
   const [listOfLikedIDs, setListOfLikedIDs] = useState([]);
+  const [listOfCartIDs, setListOfCartIDs] = useState([]);
   const { Desc, Category, Photo, Price, Quantity, Title, id, ...newItem } =
     item;
 
@@ -27,6 +31,16 @@ function Product({ item }) {
       setListOfLikedIDs(likedList);
     }
   }, [likedID]);
+
+  useEffect(() => {
+    const cartList = JSON.parse(localStorage.getItem("cartList"));
+    if (cartList === null) {
+      setListOfCartIDs([]);
+    } else {
+      setListOfCartIDs(cartList);
+    }
+  }, [cartID]);
+
   return (
     <>
       <div className="group bg-zinc-700 w-72 rounded-2xl shadow-white hover:shadow-teal-500 shadow-md flex flex-col transition-all">
@@ -85,7 +99,17 @@ function Product({ item }) {
         </div>
         <div className="flex pb-4 mt-auto pt-4 pl-3 items-center relative">
           <p className="text-xl font-bold">Cena: {Price}</p>
-          <FaCartPlus className="text-3xl absolute right-0 mr-5 cursor-pointer transition-all hover:text-teal-400" />
+          {listOfCartIDs.includes(id) === false ? (
+            <FaCartPlus
+              onClick={() => dispatch(addToCart(id))}
+              className="text-3xl absolute right-0 mr-5 cursor-pointer transition-all hover:text-teal-400"
+            />
+          ) : (
+            <BsCartXFill
+              onClick={() => dispatch(removeFromCart(id))}
+              className="text-3xl absolute right-0 mr-5 cursor-pointer transition-all hover:text-teal-500"
+            />
+          )}
         </div>
       </div>
     </>
