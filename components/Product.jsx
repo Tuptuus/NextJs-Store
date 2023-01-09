@@ -8,13 +8,13 @@ import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { addToLiked, removeFromLiked } from "../features/liked/LikedSlice";
 import { addToCart, removeFromCart } from "../features/cart/CartSlice";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebase-config";
 
 function Product({ item }) {
   const likedID = useSelector((state) => state.likedProds.likedIDs);
-  const cartID = useSelector((state) => state.cartProds.cartIDs);
   const dispatch = useDispatch();
   const [listOfLikedIDs, setListOfLikedIDs] = useState([]);
-  const [listOfCartIDs, setListOfCartIDs] = useState([]);
   const { Desc, Category, Photo, Price, Quantity, Title, id, ...newItem } =
     item;
 
@@ -31,15 +31,6 @@ function Product({ item }) {
       setListOfLikedIDs(likedList);
     }
   }, [likedID]);
-
-  useEffect(() => {
-    const cartList = JSON.parse(localStorage.getItem("cartList"));
-    if (cartList === null) {
-      setListOfCartIDs([]);
-    } else {
-      setListOfCartIDs(cartList);
-    }
-  }, [cartID]);
 
   return (
     <>
@@ -99,17 +90,10 @@ function Product({ item }) {
         </div>
         <div className="flex pb-4 mt-auto pt-4 pl-3 items-center relative">
           <p className="text-xl font-bold">Cena: {Price}</p>
-          {listOfCartIDs.includes(id) === false ? (
-            <FaCartPlus
-              onClick={() => dispatch(addToCart(id))}
-              className="text-3xl absolute right-0 mr-5 cursor-pointer transition-all hover:text-teal-400"
-            />
-          ) : (
-            <BsCartXFill
-              onClick={() => dispatch(removeFromCart(id))}
-              className="text-3xl absolute right-0 mr-5 cursor-pointer transition-all hover:text-teal-500"
-            />
-          )}
+          <FaCartPlus
+            onClick={() => dispatch(addToCart({ id: id, qty: 1 }))}
+            className="text-3xl absolute right-0 mr-5 cursor-pointer transition-all hover:text-teal-400"
+          />
         </div>
       </div>
     </>

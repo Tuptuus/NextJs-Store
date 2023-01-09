@@ -13,8 +13,8 @@ function Page() {
     let cartProdsTempArr = [];
     const cartProdsArrIDs = JSON.parse(localStorage.getItem("cartList"));
     if (cartProdsArrIDs.length > 0) {
-      cartProdsArrIDs.forEach(async (id) => {
-        const docRef = doc(db, "products", id);
+      cartProdsArrIDs.forEach(async (item) => {
+        const docRef = doc(db, "products", item.id);
         const docSnap = await getDoc(docRef);
         cartProdsTempArr.push({ ...docSnap.data(), id: docSnap.id });
         setCartProdsArr(cartProdsTempArr);
