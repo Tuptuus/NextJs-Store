@@ -16,7 +16,11 @@ function Page() {
       cartProdsArrIDs.forEach(async (item) => {
         const docRef = doc(db, "products", item.id);
         const docSnap = await getDoc(docRef);
-        cartProdsTempArr.push({ ...docSnap.data(), id: docSnap.id });
+        cartProdsTempArr.push({
+          ...docSnap.data(),
+          id: docSnap.id,
+          qty: item.qty,
+        });
         setCartProdsArr(cartProdsTempArr);
       });
     } else {
@@ -30,10 +34,12 @@ function Page() {
         <p className="text-3xl font-medium ml-12">Koszyk:</p>
       </div>
       {cartProdsArr.length > 0 ? (
-        <div className="bg-red-900 ">
-          {cartProdsArr.map((item) => (
-            <Product item={item} key={item.id} />
-          ))}
+        <div className="flex flex-col items-center">
+          <div className="bg-red-900 w-4/5">
+            {cartProdsArr.map((item) => (
+              <Product item={item} key={item.id} />
+            ))}
+          </div>
         </div>
       ) : (
         <div className="bg-zinc-900 justify-items-center pb-3">
