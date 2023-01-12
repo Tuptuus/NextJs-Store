@@ -8,6 +8,7 @@ import Summary from "../../components/cartPage/Summary";
 
 function Page() {
   const [cartProdsArr, setCartProdsArr] = useState([]);
+  const [summaryPrice, setSummaryPrice] = useState(1);
   const cartID = useSelector((state) => state.cartProds.cartIDs);
 
   useEffect(() => {
@@ -29,6 +30,14 @@ function Page() {
     }
   }, [cartID]);
 
+  useEffect(() => {
+    let sumPrice = 0;
+    cartProdsArr.forEach((prod) => {
+      sumPrice += parseInt(prod.Price) * prod.qty;
+    });
+    setSummaryPrice(sumPrice);
+  }, [cartProdsArr]);
+
   return (
     <>
       <div className="bg-zinc-900 pt-6 pb-6">
@@ -42,7 +51,7 @@ function Page() {
                 <Product item={item} key={item.id} />
               ))}
             </div>
-            <Summary />
+            <Summary price={summaryPrice} />
           </div>
         </div>
       ) : (

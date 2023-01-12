@@ -2,8 +2,8 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { TiArrowSortedDown } from "react-icons/ti";
-import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart, setNewState } from "../../features/cart/CartSlice";
+import { useDispatch } from "react-redux";
+import { removeFromCart, changeItemQty } from "../../features/cart/CartSlice";
 import { FaTrashAlt } from "react-icons/fa";
 import Link from "next/link";
 
@@ -35,23 +35,11 @@ function Product({ item }) {
     } else {
       setItemQty(inputValue);
     }
-    cartList.forEach((item) => {
-      if (item.id == id) {
-        item.qty = parseInt(inputValue);
-      }
-    });
-    localStorage.setItem("cartList", JSON.stringify(cartList));
-    dispatch(setNewState(cartList));
+    dispatch(changeItemQty({ id: id, qty: inputValue }));
   };
 
   const setQtyOnList = (id, qty) => {
-    cartList.forEach((item) => {
-      if (item.id == id) {
-        item.qty = qty;
-      }
-    });
-    localStorage.setItem("cartList", JSON.stringify(cartList));
-    dispatch(setNewState(cartList));
+    dispatch(changeItemQty({ id: id, qty: qty }));
     setItemQty(qty);
     setInputValue(qty);
     setListShowed("");
