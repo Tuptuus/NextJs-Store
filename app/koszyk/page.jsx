@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Product from "../../components/cartPage/Product";
 import { db } from "../../firebase-config";
 import { useSelector } from "react-redux";
+import Summary from "../../components/cartPage/Summary";
 
 function Page() {
   const [cartProdsArr, setCartProdsArr] = useState([]);
@@ -34,11 +35,14 @@ function Page() {
         <p className="text-3xl font-medium ml-12">Koszyk:</p>
       </div>
       {cartProdsArr.length > 0 ? (
-        <div className="flex flex-col items-center">
-          <div className="bg-red-900 w-4/5">
-            {cartProdsArr.map((item) => (
-              <Product item={item} key={item.id} />
-            ))}
+        <div className="flex justify-center items-center ">
+          <div className="w-4/5 flex">
+            <div className="w-[70%] border rounded-lg flex flex-col h-full justify-center">
+              {cartProdsArr.map((item) => (
+                <Product item={item} key={item.id} />
+              ))}
+            </div>
+            <Summary />
           </div>
         </div>
       ) : (

@@ -1,16 +1,17 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
-import { setNewState } from "../../features/cart/CartSlice";
+import { removeFromCart, setNewState } from "../../features/cart/CartSlice";
+import { FaTrashAlt } from "react-icons/fa";
+import Link from "next/link";
 
 function Product({ item }) {
   const [listShowed, setListShowed] = useState("");
   const [inputValue, setInputValue] = useState(item.qty);
   const [itemQty, setItemQty] = useState(item.qty);
   const cartList = JSON.parse(localStorage.getItem("cartList"));
-  const cartIDs = useSelector((state) => state.cartProds.cartIDs);
   const dispatch = useDispatch();
 
   const handleQtyList = (id) => {
@@ -20,10 +21,6 @@ function Product({ item }) {
       setListShowed("");
     }
   };
-
-  // useEffect(() => {
-  //   console.log(cartList);
-  // }, [cartList]);
 
   const handleInput = (e) => {
     let tempvalue = e.target.value;
@@ -59,18 +56,26 @@ function Product({ item }) {
     setInputValue(qty);
     setListShowed("");
   };
+
   return (
-    <div className="bg-blue-500 w-3/5 mt-3 py-5 pl-3 flex">
-      <div className="bg-yellow-500 w-1/5">
+    <div className="mt-3 py-5 pl-3 flex border-b last:border-b-0">
+      <div className="w-[15%]">
         <Image src={item.Photo} width={100} height={100} alt={item.Title} />
       </div>
-      <div className="bg-red-500 w-1/2 flex items-center">{item.Title}</div>
-      <div className="bg-green-500 w-[30%] flex items-center">
-        <div className="bg-yellow-500 w-1/3 flex justify-center">
+      <div className="w-[65%] flex items-center">
+        <Link
+          className="hover:underline text-xl font-bold underline-offset-2"
+          href={`/product/${item.id}`}
+        >
+          {item.Title}
+        </Link>
+      </div>
+      <div className="w-[20%] flex items-center">
+        <div className="w-1/3 flex justify-center">
           <p>{item.Price}</p>
         </div>
-        <div className="bg-red-700 w-1/3 flex items-center justify-center">
-          <div className="bg-blue-500 w-12 h-8 rounded-xl items-center justify-center flex">
+        <div className="w-1/3 flex items-center justify-center">
+          <div className="w-12 h-8 rounded-xl items-center justify-center flex">
             {itemQty < 9 ? (
               <>
                 <button
@@ -80,7 +85,7 @@ function Product({ item }) {
                       setListShowed("");
                     }, 200);
                   }}
-                  className="w-full h-full flex justify-center items-center relative"
+                  className="w-full h-full flex justify-center items-center relative border rounded-3xl"
                 >
                   <span className="">{itemQty}</span>
                   <span>
@@ -168,7 +173,7 @@ function Product({ item }) {
               </>
             ) : (
               <input
-                className="w-full bg-transparent outline-none text-center"
+                className="w-full h-full bg-transparent outline-none text-center border rounded-3xl"
                 type="number"
                 max="999"
                 min="1"
@@ -180,7 +185,14 @@ function Product({ item }) {
             )}
           </div>
         </div>
-        <div className="bg-yellow-300 w-1/3 flex justify-center">d</div>
+        <div className="w-1/3 flex justify-center">
+          <FaTrashAlt
+            onClick={() => {
+              dispatch(removeFromCart(item.id));
+            }}
+            className="text-2xl cursor-pointer"
+          />
+        </div>
       </div>
     </div>
   );

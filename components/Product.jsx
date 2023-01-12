@@ -3,13 +3,10 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { FiHeart } from "react-icons/fi";
 import { FaHeart, FaCartPlus } from "react-icons/fa";
-import { BsCartXFill } from "react-icons/bs";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { addToLiked, removeFromLiked } from "../features/liked/LikedSlice";
-import { addToCart, removeFromCart } from "../features/cart/CartSlice";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../firebase-config";
+import { addToCart } from "../features/cart/CartSlice";
 
 function Product({ item }) {
   const likedID = useSelector((state) => state.likedProds.likedIDs);
@@ -90,10 +87,14 @@ function Product({ item }) {
         </div>
         <div className="flex pb-4 mt-auto pt-4 pl-3 items-center relative">
           <p className="text-xl font-bold">Cena: {Price}</p>
-          <FaCartPlus
-            onClick={() => dispatch(addToCart({ id: id, qty: 1 }))}
-            className="text-3xl absolute right-0 mr-5 cursor-pointer transition-all hover:text-teal-400"
-          />
+          {item.Quantity > 0 ? (
+            <FaCartPlus
+              onClick={() => dispatch(addToCart({ id: id, qty: 1 }))}
+              className="text-3xl absolute right-0 mr-5 cursor-pointer transition-all hover:text-teal-400"
+            />
+          ) : (
+            <FaCartPlus className="text-3xl absolute right-0 mr-5 cursor-not-allowed transition-all" />
+          )}
         </div>
       </div>
     </>

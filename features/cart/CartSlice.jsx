@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../firebase-config";
 let initalCartProds = [];
 if (typeof window !== "undefined") {
   initalCartProds = JSON.parse(localStorage.getItem("cartList"));
@@ -40,9 +38,10 @@ export const cartSlice = createSlice({
       }
     },
     removeFromCart: (state, action) => {
-      const newIDs = state.cartIDs.filter((id) => id !== action.payload);
-      state.cartIDs = newIDs;
-      localStorage.setItem("cartList", JSON.stringify(state.cartIDs));
+      const items = JSON.parse(localStorage.getItem("cartList"));
+      const newItems = items.filter((item) => item.id !== action.payload);
+      state.cartIDs = newItems;
+      localStorage.setItem("cartList", JSON.stringify(newItems));
     },
     setNewState: (state, action) => {
       state.cartIDs == action.payload;
