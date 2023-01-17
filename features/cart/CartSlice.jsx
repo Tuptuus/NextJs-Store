@@ -17,6 +17,7 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
+      console.log(action.payload);
       let found = false;
       const items = JSON.parse(localStorage.getItem("cartList"));
       if (items === null) {
@@ -25,7 +26,7 @@ export const cartSlice = createSlice({
       } else {
         items.forEach((item) => {
           if (item.id == action.payload.id) {
-            item.qty = item.qty + 1;
+            item.qty = item.qty + action.payload.qty;
             state.cartIDs = items;
             localStorage.setItem("cartList", JSON.stringify(items));
             found = true;

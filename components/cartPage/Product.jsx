@@ -50,7 +50,7 @@ function Product({ item }) {
       <div className="w-[15%]">
         <Image src={item.Photo} width={100} height={100} alt={item.Title} />
       </div>
-      <div className="w-[65%] flex items-center">
+      <div className="w-1/2 flex items-center">
         <Link
           className="hover:underline text-xl font-bold underline-offset-2"
           href={`/product/${item.id}`}
@@ -58,11 +58,11 @@ function Product({ item }) {
           {item.Title}
         </Link>
       </div>
-      <div className="w-[20%] flex items-center">
-        <div className="w-1/3 flex justify-center">
+      <div className="w-2/5 flex items-center">
+        <div className="flex justify-center px-4 w-1/3">
           <p>{item.Price}</p>
         </div>
-        <div className="w-1/3 flex items-center justify-center">
+        <div className="flex items-center justify-center w-1/3">
           <div className="w-12 h-8 rounded-xl items-center justify-center flex">
             {itemQty < 9 ? (
               <>
@@ -173,7 +173,7 @@ function Product({ item }) {
             )}
           </div>
         </div>
-        <div className="w-1/3 flex justify-center">
+        <div className="flex justify-center w-1/3">
           <FaTrashAlt
             onClick={() => {
               dispatch(removeFromCart(item.id));
