@@ -67,67 +67,67 @@ function Header() {
               <BsLaptop />
               <Link
                 onClick={showMenuHandle}
-                className="pl-2"
+                className="pl-2 hover:underline underline-offset-4 decoration-teal-500 transition-all"
                 href={"/laptopy-i-komputery"}
               >
                 Laptopy i komputery
               </Link>
             </li>
-            <li className="flex items-center pt-5 text-lg">
+            <li className="flex items-center pt-5 text-lg ">
               <FiSmartphone />
               <Link
                 onClick={showMenuHandle}
-                className="pl-2"
+                className="pl-2 hover:underline underline-offset-4 decoration-teal-500 transition-all"
                 href={"/smartfony-i-smartwatche"}
               >
                 Smartfony i smartwatche
               </Link>
             </li>
-            <li className="flex items-center pt-5 text-lg">
+            <li className="flex items-center pt-5 text-lg ">
               <FaGamepad />
               <Link
                 onClick={showMenuHandle}
-                className="pl-2"
+                className="pl-2 hover:underline underline-offset-4 decoration-teal-500 transition-all"
                 href={"/gaming-i-streaming"}
               >
                 Gaming i streaming
               </Link>
             </li>
-            <li className="flex items-center pt-5 text-lg">
+            <li className="flex items-center pt-5 text-lg ">
               <BsCpu />
               <Link
                 onClick={showMenuHandle}
-                className="pl-2"
+                className="pl-2 hover:underline underline-offset-4 decoration-teal-500 transition-all"
                 href={"/podzespoly-komputerowe"}
               >
                 Podzespoły komputerowe
               </Link>
             </li>
-            <li className="flex items-center pt-5 text-lg">
+            <li className="flex items-center pt-5 text-lg ">
               <BsPrinter />
               <Link
                 onClick={showMenuHandle}
-                className="pl-2"
+                className="pl-2 hover:underline underline-offset-4 decoration-teal-500 transition-all"
                 href={"/urzadzenia-peryferyjne"}
               >
                 Urządzenia peryferyjne
               </Link>
             </li>
-            <li className="flex items-center pt-5 text-lg">
+            <li className="flex items-center pt-5 text-lg ">
               <BsTv />
               <Link
                 onClick={showMenuHandle}
-                className="pl-2"
+                className="pl-2 hover:underline underline-offset-4 decoration-teal-500 transition-all"
                 href={"/TV-i-audio"}
               >
                 TV i audio
               </Link>
             </li>
-            <li className="flex items-center pt-5 text-lg">
+            <li className="flex items-center pt-5 text-lg ">
               <CiUsb />
               <Link
                 onClick={showMenuHandle}
-                className="pl-2"
+                className="pl-2 hover:underline underline-offset-4 decoration-teal-500 transition-all"
                 href={"/akcesoria"}
               >
                 Akcesoria
@@ -137,7 +137,10 @@ function Header() {
         </div>
       </div>
       {showMenu ? (
-        <div className="bg-black opacity-70 w-full h-full absolute z-40"></div>
+        <div
+          onClick={showMenuHandle}
+          className="bg-black opacity-70 w-full h-full absolute z-40"
+        ></div>
       ) : null}
       <div className="bg-zinc-900 text-white w-full h-20 flex">
         <div className="w-48 text-4xl font-bold italic text-center flex justify-center pl-2 mt-5">
@@ -185,7 +188,9 @@ function Header() {
               </Link>
             </span>
             <span className="lg:ml-[8%] 2xl:ml-[10%] ml-5 ">
-              <FaUserAlt className="text-4xl cursor-pointer" />
+              <Link href={"/login"}>
+                <FaUserAlt className="text-4xl cursor-pointer" />
+              </Link>
             </span>
           </div>
         </div>
