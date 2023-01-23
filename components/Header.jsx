@@ -7,19 +7,30 @@ import {
   FaBalanceScale,
   FaShoppingCart,
 } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaGamepad } from "react-icons/fa";
 import { FiSmartphone } from "react-icons/fi";
 import { BsCpu, BsLaptop, BsPrinter, BsTv } from "react-icons/bs";
 import { CiUsb } from "react-icons/ci";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase-config";
+import { setCurrentUser } from "../features/login/loginSlice";
 
 function Header() {
   const likedID = useSelector((state) => state.likedProds.likedIDs);
   const cartID = useSelector((state) => state.cartProds.cartIDs);
+  const user = useSelector((state) => state.user.user);
   const [likedProds, setLikedProds] = useState("");
   const [cartProds, setCartProds] = useState("");
   const [showMenu, setShowMenu] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      dispatch(setCurrentUser(JSON.stringify(user)));
+    });
+  }, [dispatch]);
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("shopList")) == null) {
@@ -188,9 +199,15 @@ function Header() {
               </Link>
             </span>
             <span className="lg:ml-[8%] 2xl:ml-[10%] ml-5 ">
-              <Link href={"/login"}>
-                <FaUserAlt className="text-4xl cursor-pointer" />
-              </Link>
+              {user ? (
+                <Link href={"/konto"}>
+                  <FaUserAlt className="text-4xl cursor-pointer" />
+                </Link>
+              ) : (
+                <Link href={"/login"}>
+                  <FaUserAlt className="text-4xl cursor-pointer" />
+                </Link>
+              )}
             </span>
           </div>
         </div>

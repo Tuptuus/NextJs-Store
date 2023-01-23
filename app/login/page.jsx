@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { auth } from "../../firebase-config";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../features/login/loginSlice";
+import { useRouter } from "next/navigation";
 
 function Page() {
   const [login, setLoginPage] = useState(true);
@@ -11,6 +12,10 @@ function Page() {
 
   const [emailValueLog, setEmailValueLog] = useState("");
   const [passValueLog, setPassValueLog] = useState("");
+
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const user = useSelector((state) => state.user.user);
 
   const handleInputsValue = (e, type) => {
     if (type == "emailLog") {
@@ -23,6 +28,18 @@ function Page() {
       setLoginValueReg(e.target.value);
     } else if (type == "passReg") {
       setPassValueReg(e.target.value);
+    }
+  };
+
+  const handleLogin = (type) => {
+    if (type == "register") {
+      dispatch(
+        registerUser({
+          email: emailValueReg,
+          pass: passValueReg,
+          nick: loginValueReg,
+        })
+      );
     }
   };
 
@@ -93,7 +110,7 @@ function Page() {
               }}
             />
             <input
-              type="text"
+              type="password"
               className="w-96 rounded-full mt-5 h-10 border-none outline-none text-black pl-5"
               placeholder="Hasło"
               value={passValueReg}
@@ -101,7 +118,10 @@ function Page() {
                 handleInputsValue(e, "passReg");
               }}
             />
-            <div className="bg-teal-500 w-96 h-10 rounded-full mt-6 hover:bg-teal-600 transition-colors flex justify-center items-center text-xl cursor-pointer mb-5">
+            <div
+              onClick={() => handleLogin("register")}
+              className="bg-teal-500 w-96 h-10 rounded-full mt-6 hover:bg-teal-600 transition-colors flex justify-center items-center text-xl cursor-pointer mb-5"
+            >
               Zarejestruj się
             </div>
             <div className="flex w-full">
