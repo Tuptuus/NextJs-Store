@@ -31,7 +31,7 @@ function Product({ item }) {
 
   return (
     <>
-      <div className="group bg-zinc-700 w-72 rounded-2xl shadow-white hover:shadow-teal-500 shadow-md flex flex-col transition-all">
+      <div className="group bg-zinc-700 w-72 h-[450px] rounded-2xl shadow-white hover:shadow-teal-500 shadow-md flex flex-col transition-all last:mb-20">
         <div className="h-96">
           <div className="relative">
             <Image
@@ -40,6 +40,7 @@ function Product({ item }) {
               width={500}
               height={500}
               className="rounded-t-2xl select-none"
+              loading="lazy"
             />
             {listOfLikedIDs.includes(id) === false ? (
               <FiHeart

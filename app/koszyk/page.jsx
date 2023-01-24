@@ -44,7 +44,7 @@ function Page() {
         <p className="text-3xl font-medium ml-12">Koszyk:</p>
       </div>
       {cartProdsArr.length > 0 ? (
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center mb-24">
           <div className="lg:flex justify-center 2xl:w-4/5">
             <div className="border lg:ml-10 xl:w-[70%] rounded-lg flex flex-col h-full justify-center">
               {cartProdsArr.map((item) => (

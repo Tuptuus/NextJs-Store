@@ -4,19 +4,33 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { auth } from "../../firebase-config";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useEffect } from "react";
 
 function Page() {
   const user = useSelector((state) => state.user.user);
+  const [currentUser, setCurrentUser] = useState(null);
   const router = useRouter();
 
-  const logout = async () => {
-    await signOut(auth);
+  useEffect(() => {
+    setCurrentUser(user);
+  }, [user]);
+
+  const logout = () => {
     router.push("/");
+    signOut(auth);
   };
 
   return (
     <div>
-      twoje konto {user ? user.displayName : null} <br />
+      <span
+        onClick={() => {
+          console.log(currentUser);
+        }}
+      >
+        twoje konto {currentUser ? currentUser.displayName : null}
+      </span>{" "}
+      <br />
       <span onClick={logout} className="cursor-pointer">
         Wyloguj się
       </span>
