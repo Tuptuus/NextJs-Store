@@ -8,14 +8,17 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { setCurrentUser } from "../../features/login/loginSlice";
-import { auth } from "../../firebase-config";
+import { auth, db } from "../../firebase-config";
 import Link from "next/link";
 import Spinner from "../../components/Spinner";
+import { addDoc, collection } from "firebase/firestore";
+import { useEffect } from "react";
 
 function Page() {
   const [login, setLoginPage] = useState(true);
   const [emailValueReg, setEmailValueReg] = useState("");
-  const [loginValueReg, setLoginValueReg] = useState("");
+  const [firstNameValueReg, setFirstNameValueReg] = useState("");
+  const [secondNameValueReg, setSecondNameValueReg] = useState("");
   const [passValueReg, setPassValueReg] = useState("");
 
   const [emailValueLog, setEmailValueLog] = useState("");
@@ -35,8 +38,10 @@ function Page() {
       setPassValueLog(e.target.value);
     } else if (type == "emailReg") {
       setEmailValueReg(e.target.value);
-    } else if (type == "loginReg") {
-      setLoginValueReg(e.target.value);
+    } else if (type == "firstNameReg") {
+      setFirstNameValueReg(e.target.value);
+    } else if (type == "secondNameReg") {
+      setSecondNameValueReg(e.target.value);
     } else if (type == "passReg") {
       setPassValueReg(e.target.value);
     }
@@ -45,8 +50,19 @@ function Page() {
   const handleLogin = async (type) => {
     setSpinner(true);
     if (type == "register") {
+      const userName =
+        firstNameValueReg.charAt(0).toUpperCase() +
+        firstNameValueReg.slice(1) +
+        " " +
+        secondNameValueReg.charAt(0).toUpperCase() +
+        secondNameValueReg.slice(1);
       try {
-        if (emailValueReg == "" || passValueReg == "" || loginValueReg == "") {
+        if (
+          emailValueReg == "" ||
+          passValueReg == "" ||
+          firstNameValueReg == "" ||
+          secondNameValueReg == ""
+        ) {
           setSpinner(false);
           setError("Wprowadź wszystkie dane");
           setTimeout(() => {
@@ -59,10 +75,16 @@ function Page() {
             passValueReg
           );
           await updateProfile(auth.currentUser, {
-            displayName: loginValueReg,
+            displayName: userName,
+          });
+          const docRef = await addDoc(collection(db, "Users"), {
+            UID: auth.currentUser.uid,
+            Name: userName,
+            email: auth.currentUser.email,
           });
           setSpinner(false);
           dispatch(setCurrentUser(JSON.stringify(auth.currentUser)));
+          console.log(auth.currentUser);
           router.push("/konto");
         }
       } catch (err) {
@@ -203,8 +225,8 @@ function Page() {
             <div className="flex flex-col items-center lg:h-[360px]">
               <input
                 type="text"
-                className="lg:w-[550px] w-96 rounded-full mt-6 h-10 lg:h-12 border-none outline-none text-black pl-5 text-xl transition-all"
-                placeholder="Email"
+                className="lg:w-[550px] w-96 rounded-full mt-4 h-10 lg:h-12 border-none outline-none text-black pl-5 text-xl transition-all"
+                placeholder="Email(wymagane)"
                 value={emailValueReg}
                 onChange={(e) => {
                   handleInputsValue(e, "emailReg");
@@ -212,8 +234,8 @@ function Page() {
               />
               <input
                 type="password"
-                className="lg:w-[550px] w-96 rounded-full mt-6 h-10 lg:h-12 border-none outline-none text-black pl-5 text-xl transition-all"
-                placeholder="Hasło"
+                className="lg:w-[550px] w-96 rounded-full mt-4 h-10 lg:h-12 border-none outline-none text-black pl-5 text-xl transition-all"
+                placeholder="Hasło(wymagane)"
                 value={passValueReg}
                 onChange={(e) => {
                   handleInputsValue(e, "passReg");
@@ -221,16 +243,25 @@ function Page() {
               />
               <input
                 type="text"
-                className="lg:w-[550px] w-96 rounded-full mt-6 h-10 lg:h-12 border-none outline-none text-black pl-5 text-xl transition-all"
-                placeholder="Nick"
-                value={loginValueReg}
+                className="lg:w-[550px] w-96 rounded-full mt-4 h-10 lg:h-12 border-none outline-none text-black pl-5 text-xl transition-all"
+                placeholder="Imie(wymagane)"
+                value={firstNameValueReg}
                 onChange={(e) => {
-                  handleInputsValue(e, "loginReg");
+                  handleInputsValue(e, "firstNameReg");
+                }}
+              />
+              <input
+                type="text"
+                className="lg:w-[550px] w-96 rounded-full mt-4 h-10 lg:h-12 border-none outline-none text-black pl-5 text-xl transition-all"
+                placeholder="Nazwisko(wymagane)"
+                value={secondNameValueReg}
+                onChange={(e) => {
+                  handleInputsValue(e, "secondNameReg");
                 }}
               />
               <div
                 onClick={() => handleLogin("register")}
-                className="bg-teal-500 lg:w-[550px] w-96 h-12 rounded-full mt-6 hover:bg-teal-600 transition-all flex justify-center items-center text-2xl cursor-pointer"
+                className="bg-teal-500 lg:w-[550px] w-96 h-12 rounded-full mt-4 hover:bg-teal-600 transition-all flex justify-center items-center text-2xl cursor-pointer"
               >
                 Zarejestruj się
                 {spinner ? (

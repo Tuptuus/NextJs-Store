@@ -58,7 +58,7 @@ function Product({ product }) {
           </div>
         </div>
       </div>
-      <div className="mt-10 px-5 text-justify text-2xl lg:w-full lg:px-20 xl:px-40 2xl:px-80">
+      <div className="mt-10 px-5 text-justify text-2xl lg:w-full lg:px-20 xl:px-40 2xl:px-80 mb-20">
         {product.Desc}
       </div>
     </div>
