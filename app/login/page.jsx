@@ -32,6 +32,7 @@ function Page() {
   const user = useSelector((state) => state.user.user);
 
   const handleInputsValue = (e, type) => {
+    console.log("e");
     if (type == "emailLog") {
       setEmailValueLog(e.target.value);
     } else if (type == "passLog") {

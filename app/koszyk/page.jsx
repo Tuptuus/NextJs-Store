@@ -3,13 +3,15 @@ import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import Product from "../../components/cartPage/Product";
 import { db } from "../../firebase-config";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setSummaryPrice } from "../../features/cart/CartSlice";
 import Summary from "../../components/cartPage/Summary";
 
 function Page() {
   const [cartProdsArr, setCartProdsArr] = useState([]);
   const [summaryPrice, setSummaryPrice] = useState(1);
   const cartID = useSelector((state) => state.cartProds.cartIDs);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     let cartProdsTempArr = [];
@@ -37,7 +39,6 @@ function Page() {
     });
     setSummaryPrice(sumPrice);
   }, [cartProdsArr]);
-
   return (
     <>
       <div className="bg-zinc-900 pt-6 pb-6">
@@ -55,7 +56,7 @@ function Page() {
           </div>
         </div>
       ) : (
-        <div className="bg-zinc-900 justify-items-center pb-3">
+        <div className="bg-zinc-900 justify-items-center pb-3 mb-20">
           <p className="text-3xl text-center">
             Nie masz żadnych przedmiotów w koszyku. <br />
             Możesz to zrobić klikając koszyk w prawym dolnym rogu przedmiotu.

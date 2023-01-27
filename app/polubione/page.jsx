@@ -36,7 +36,7 @@ function Page() {
           ))}
         </div>
       ) : (
-        <div className="bg-zinc-900 justify-items-center pb-3">
+        <div className="bg-zinc-900 justify-items-center pb-3 mb-20">
           <p className="text-3xl text-center">
             Nie masz żadnych polubionych przedmiotów. <br />
             Możesz to zrobić klikając serce w prawym górnym rogu przedmiotu.

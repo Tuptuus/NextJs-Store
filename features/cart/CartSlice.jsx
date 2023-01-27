@@ -11,6 +11,7 @@ if (initalCartProds === null) {
 
 const initialState = {
   cartIDs: initalCartProds,
+  summaryPrice: 0,
 };
 
 export const cartSlice = createSlice({
@@ -54,9 +55,13 @@ export const cartSlice = createSlice({
       state.cartIDs = items;
       localStorage.setItem("cartList", JSON.stringify(items));
     },
+    setSummaryPrice: (state, action) => {
+      state.summaryPrice = action.payload;
+    },
   },
 });
 
-export const { addToCart, removeFromCart, changeItemQty } = cartSlice.actions;
+export const { addToCart, removeFromCart, changeItemQty, setSummaryPrice } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;

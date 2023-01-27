@@ -200,7 +200,7 @@ function Header() {
             </span>
             <span className="lg:ml-[8%] 2xl:ml-[10%] ml-5 ">
               {user ? (
-                <Link href={"/konto"}>
+                <Link href={"/konto/zamowienia"}>
                   <FaUserAlt className="text-4xl cursor-pointer" />
                 </Link>
               ) : (
