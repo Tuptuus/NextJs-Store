@@ -4,8 +4,11 @@ if (typeof window !== "undefined") {
   initalLikedProds = JSON.parse(localStorage.getItem("shopList"));
 }
 
+console.log(initalLikedProds);
+
 if (initalLikedProds === null) {
   initalLikedProds = [];
+  localStorage.setItem("shopList", JSON.stringify([]));
 }
 
 const initialState = {
@@ -17,6 +20,7 @@ export const likedSlice = createSlice({
   initialState,
   reducers: {
     addToLiked: (state, action) => {
+      console.log(state.likedIDs);
       if (state.likedIDs.includes(action.payload)) {
         return;
       } else {

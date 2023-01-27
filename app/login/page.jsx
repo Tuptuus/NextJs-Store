@@ -11,7 +11,7 @@ import { setCurrentUser } from "../../features/login/loginSlice";
 import { auth, db } from "../../firebase-config";
 import Link from "next/link";
 import Spinner from "../../components/Spinner";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { useEffect } from "react";
 
 function Page() {
@@ -77,7 +77,7 @@ function Page() {
           await updateProfile(auth.currentUser, {
             displayName: userName,
           });
-          const docRef = await addDoc(collection(db, "Users"), {
+          const docRef = await setDoc(doc(db, "Users", auth.currentUser.uid), {
             UID: auth.currentUser.uid,
             Name: userName,
             email: auth.currentUser.email,
