@@ -86,7 +86,7 @@ function Page() {
           setSpinner(false);
           dispatch(setCurrentUser(JSON.stringify(auth.currentUser)));
           console.log(auth.currentUser);
-          router.push("/konto");
+          router.push("/konto/zamowienia");
         }
       } catch (err) {
         console.log(err);
@@ -127,7 +127,7 @@ function Page() {
           }, 2500);
         } else {
           await signInWithEmailAndPassword(auth, emailValueLog, passValueLog);
-          router.push("/konto");
+          router.push("/konto/zamowienia");
           setSpinner(false);
         }
       } catch (err) {

@@ -42,17 +42,6 @@ function Layout({ children }) {
             Zamówienia
           </div>
         </Link>
-        <Link href={"konto/dane-do-zamowien"}>
-          <div
-            className={`text-lg cursor-pointer py-3 pl-5 hover:bg-zinc-800 transition-all decoration-teal-500 ${
-              path == "/konto/dane-do-zamowien"
-                ? "font-bold underline underline-offset-4"
-                : null
-            }`}
-          >
-            Dane do zamówień
-          </div>
-        </Link>
         <Link href={"konto/ustawienia-konta"}>
           <div
             className={`text-lg cursor-pointer py-3 pl-5 hover:bg-zinc-800 transition-all decoration-teal-500 ${

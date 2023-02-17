@@ -87,7 +87,9 @@ function Product({ item }) {
                 >
                   <li
                     onClick={() => {
-                      setQtyOnList(item.id, 1);
+                      if (item.Quantity >= 1) {
+                        setQtyOnList(item.id, 1);
+                      }
                     }}
                     className="bg-gray-600 w-12 text-center py-1 cursor-pointer hover:bg-gray-500"
                   >
@@ -95,65 +97,97 @@ function Product({ item }) {
                   </li>
                   <li
                     onClick={() => {
-                      setQtyOnList(item.id, 2);
+                      if (item.Quantity >= 2) {
+                        setQtyOnList(item.id, 2);
+                      }
                     }}
-                    className="bg-gray-600 w-12 text-center py-1 cursor-pointer hover:bg-gray-500"
+                    className={`bg-gray-600 w-12 text-center py-1 cursor-pointer hover:bg-gray-500 ${
+                      item.Quantity < 2 ? "cursor-not-allowed" : null
+                    }`}
                   >
                     2
                   </li>
                   <li
                     onClick={() => {
-                      setQtyOnList(item.id, 3);
+                      if (item.Quantity >= 3) {
+                        setQtyOnList(item.id, 3);
+                      }
                     }}
-                    className="bg-gray-600 w-12 text-center py-1 cursor-pointer hover:bg-gray-500"
+                    className={`bg-gray-600 w-12 text-center py-1 cursor-pointer hover:bg-gray-500 ${
+                      item.Quantity < 3 ? "cursor-not-allowed" : null
+                    }`}
                   >
                     3
                   </li>
                   <li
                     onClick={() => {
-                      setQtyOnList(item.id, 4);
+                      if (item.Quantity >= 4) {
+                        setQtyOnList(item.id, 4);
+                      }
                     }}
-                    className="bg-gray-600 w-12 text-center py-1 cursor-pointer hover:bg-gray-500"
+                    className={`bg-gray-600 w-12 text-center py-1 cursor-pointer hover:bg-gray-500 ${
+                      item.Quantity < 4 ? "cursor-not-allowed" : null
+                    }`}
                   >
                     4
                   </li>
                   <li
                     onClick={() => {
-                      setQtyOnList(item.id, 5);
+                      if (item.Quantity >= 5) {
+                        setQtyOnList(item.id, 5);
+                      }
                     }}
-                    className="bg-gray-600 w-12 text-center py-1 cursor-pointer hover:bg-gray-500"
+                    className={`bg-gray-600 w-12 text-center py-1 cursor-pointer hover:bg-gray-500 ${
+                      item.Quantity < 5 ? "cursor-not-allowed" : null
+                    }`}
                   >
                     5
                   </li>
                   <li
                     onClick={() => {
-                      setQtyOnList(item.id, 6);
+                      if (item.Quantity >= 6) {
+                        setQtyOnList(item.id, 6);
+                      }
                     }}
-                    className="bg-gray-600 w-12 text-center py-1 cursor-pointer hover:bg-gray-500"
+                    className={`bg-gray-600 w-12 text-center py-1 cursor-pointer hover:bg-gray-500 ${
+                      item.Quantity < 6 ? "cursor-not-allowed" : null
+                    }`}
                   >
                     6
                   </li>
                   <li
                     onClick={() => {
-                      setQtyOnList(item.id, 7);
+                      if (item.Quantity >= 7) {
+                        setQtyOnList(item.id, 7);
+                      }
                     }}
-                    className="bg-gray-600 w-12 text-center py-1 cursor-pointer hover:bg-gray-500"
+                    className={`bg-gray-600 w-12 text-center py-1 cursor-pointer hover:bg-gray-500 ${
+                      item.Quantity < 7 ? "cursor-not-allowed" : null
+                    }`}
                   >
                     7
                   </li>
                   <li
                     onClick={() => {
-                      setQtyOnList(item.id, 8);
+                      if (item.Quantity >= 8) {
+                        setQtyOnList(item.id, 8);
+                      }
                     }}
-                    className="bg-gray-600 w-12 text-center py-1 cursor-pointer hover:bg-gray-500"
+                    className={`bg-gray-600 w-12 text-center py-1 cursor-pointer hover:bg-gray-500 ${
+                      item.Quantity < 8 ? "cursor-not-allowed" : null
+                    }`}
                   >
                     8
                   </li>
                   <li
                     onClick={() => {
-                      setQtyOnList(item.id, 9);
+                      if (item.Quantity >= 9) {
+                        setQtyOnList(item.id, 9);
+                      }
                     }}
-                    className="bg-gray-600 w-12 text-center py-1 cursor-pointer hover:bg-gray-500"
+                    className={`bg-gray-600 w-12 text-center py-1 cursor-pointer hover:bg-gray-500 ${
+                      item.Quantity < 9 ? "cursor-not-allowed" : null
+                    }`}
                   >
                     9+
                   </li>
