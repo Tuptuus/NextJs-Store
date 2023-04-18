@@ -4,20 +4,18 @@ import React, { useEffect, useState } from "react";
 import Product from "../../components/cartPage/Product";
 import { db } from "../../firebase-config";
 import { useDispatch, useSelector } from "react-redux";
-import { setSummaryPrice } from "../../features/cart/CartSlice";
 import Summary from "../../components/cartPage/Summary";
 
 function Page() {
   const [cartProdsArr, setCartProdsArr] = useState([]);
-  const [summaryPrice, setSummaryPrice] = useState(1);
+  const [summaryPrice, setSummaryPrice] = useState(0);
   const cartID = useSelector((state) => state.cartProds.cartIDs);
   const dispatch = useDispatch();
 
   useEffect(() => {
     let cartProdsTempArr = [];
-    const cartProdsArrIDs = JSON.parse(localStorage.getItem("cartList"));
-    if (cartProdsArrIDs.length > 0) {
-      cartProdsArrIDs.forEach(async (item) => {
+    if (cartID.length > 0) {
+      cartID.forEach(async (item) => {
         const docRef = doc(db, "products", item.id);
         const docSnap = await getDoc(docRef);
         cartProdsTempArr.push({
@@ -39,6 +37,7 @@ function Page() {
     });
     setSummaryPrice(sumPrice);
   }, [cartProdsArr]);
+
   return (
     <>
       <div className="bg-zinc-900 pt-6 pb-6">

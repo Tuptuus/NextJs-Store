@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { useDispatch } from "react-redux";
 import { removeFromCart, changeItemQty } from "../../features/cart/CartSlice";
@@ -11,7 +11,6 @@ function Product({ item }) {
   const [listShowed, setListShowed] = useState("");
   const [inputValue, setInputValue] = useState(item.qty);
   const [itemQty, setItemQty] = useState(item.qty);
-  const cartList = JSON.parse(localStorage.getItem("cartList"));
   const dispatch = useDispatch();
 
   const handleQtyList = (id) => {
@@ -29,13 +28,14 @@ function Product({ item }) {
   };
 
   const leaveInputHandle = (id) => {
-    if (inputValue == "") {
-      setInputValue(item.qty);
-      setItemQty(item.qty);
+    if (inputValue == "" || inputValue == null) {
+      setInputValue(1);
+      setItemQty(1);
+      dispatch(changeItemQty({ id: id, qty: 1 }));
     } else {
       setItemQty(inputValue);
+      dispatch(changeItemQty({ id: id, qty: inputValue }));
     }
-    dispatch(changeItemQty({ id: id, qty: inputValue }));
   };
 
   const setQtyOnList = (id, qty) => {
