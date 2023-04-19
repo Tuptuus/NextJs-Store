@@ -7,6 +7,7 @@ import { auth } from "../../firebase-config";
 
 function Summary({ price }) {
   const dispatch = useDispatch();
+
   return (
     <div className="lg:w-[30%] flex flex-col items-center top-5 sticky h-full">
       <div className="border w-4/5 p-5 rounded-lg">

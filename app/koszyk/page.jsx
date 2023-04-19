@@ -1,4 +1,5 @@
 "use client";
+import { setSummaryPrice } from "../../features/cart/CartSlice";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import Product from "../../components/cartPage/Product";
@@ -10,7 +11,6 @@ function Page() {
   const [cartProdsArr, setCartProdsArr] = useState([]);
   const [summaryPrice, setSummaryPrice] = useState(0);
   const cartID = useSelector((state) => state.cartProds.cartIDs);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     let cartProdsTempArr = [];

@@ -3,6 +3,7 @@ import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { db } from "../../firebase-config";
+import Summarise from "../../components/orderPage/Summarise";
 
 function Page() {
   const [cartProdsArr, setCartProdsArr] = useState([]);
@@ -27,20 +28,19 @@ function Page() {
     }
   }, [cartID]);
 
-  console.log(cartProdsArr);
   return (
     <div className="flex justify-center bg-red-500">
-      <div className="bg-blue-500 w-[70%]">
+      <div className="bg-blue-500 w-1/2">
         <p>Dostawa i płatność</p>
         <p>Dostawa</p>
         <div className="flex flex-col">
           <label className="flex">
             <input type="radio" name="delivery" className="form-radio" />
-            <p className="pl-2">Kurier - UPS, FedEx</p>
+            <p className="pl-2">Kurier - UPS, FedEx(20,00zł)</p>
           </label>
         </div>
       </div>
-      <div className="bg-green-500">Tutaj coś tego</div>
+      <Summarise cart={cartProdsArr} />
     </div>
   );
 }
