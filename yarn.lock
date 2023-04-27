@@ -479,10 +479,10 @@
   "resolved" "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz"
   "version" "1.2.1"
 
-"@next/env@13.3.1-canary.15":
-  "integrity" "sha512-CmJlTJqpUxS1LAYaSwPCP9/JjDC4VcImUg8Z8MTWxRSkJZTwUyPnujiXiAEIVmwizHwRgYc9bnKd6Ct3hJd3ww=="
-  "resolved" "https://registry.npmjs.org/@next/env/-/env-13.3.1-canary.15.tgz"
-  "version" "13.3.1-canary.15"
+"@next/env@13.3.1":
+  "integrity" "sha512-EDtCoedIZC7JlUQ3uaQpSc4aVmyhbLHmQVALg7pFfQgOTjgSnn7mKtA0DiCMkYvvsx6aFb5octGMtWrOtGXW9A=="
+  "resolved" "https://registry.npmjs.org/@next/env/-/env-13.3.1.tgz"
+  "version" "13.3.1"
 
 "@next/eslint-plugin-next@13.0.7":
   "integrity" "sha512-Q/Z0V3D3UpKhhzFU6/s17wD4rqJ+ZDGded8UpqNyzX1nUdD+/PnsZexPhSIZ2Yf/c8QESeirmJVRb3eAfCQkRQ=="
@@ -496,10 +496,10 @@
   "resolved" "https://registry.npmjs.org/@next/font/-/font-13.0.7.tgz"
   "version" "13.0.7"
 
-"@next/swc-win32-x64-msvc@13.3.1-canary.15":
-  "integrity" "sha512-uX0GFn8WBGdUcJcj3maIZJ0gFSG9BKxb4zo4UgfpctCB7PSdaxs5qxc6c4d9nAlgvuwUNn/T4BpV7Y0M7Sx94Q=="
-  "resolved" "https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-13.3.1-canary.15.tgz"
-  "version" "13.3.1-canary.15"
+"@next/swc-win32-x64-msvc@13.3.1":
+  "integrity" "sha512-Sl1F4Vp5Z1rNXWZYqJwMuWRRol4bqOB6+/d7KqkgQ4AcafKPN1PZmpkCoxv4UFHtFNIB7EotnuIhtXu3zScicQ=="
+  "resolved" "https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-13.3.1.tgz"
+  "version" "13.3.1"
 
 "@nodelib/fs.scandir@2.1.5":
   "integrity" "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="
@@ -2025,27 +2025,27 @@
   "resolved" "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz"
   "version" "1.4.0"
 
-"next@^13.3.1-canary.13":
-  "integrity" "sha512-vjcfnBl31OwkI+cpateUvDvKs8HhH2Qcof8YuxhdzXDkubJgM2p4GVr9CL3C+13CpH8Kaj6GtSzLgvvmNaUkIw=="
-  "resolved" "https://registry.npmjs.org/next/-/next-13.3.1-canary.15.tgz"
-  "version" "13.3.1-canary.15"
+"next@^13.3.1":
+  "integrity" "sha512-eByWRxPzKHs2oQz1yE41LX35umhz86ZSZ+mYyXBqn2IBi2hyUqxBA88avywdr4uyH+hCJczegGsDGWbzQA5Rqw=="
+  "resolved" "https://registry.npmjs.org/next/-/next-13.3.1.tgz"
+  "version" "13.3.1"
   dependencies:
-    "@next/env" "13.3.1-canary.15"
+    "@next/env" "13.3.1"
     "@swc/helpers" "0.5.0"
     "busboy" "1.6.0"
     "caniuse-lite" "^1.0.30001406"
     "postcss" "8.4.14"
     "styled-jsx" "5.1.1"
   optionalDependencies:
-    "@next/swc-darwin-arm64" "13.3.1-canary.15"
-    "@next/swc-darwin-x64" "13.3.1-canary.15"
-    "@next/swc-linux-arm64-gnu" "13.3.1-canary.15"
-    "@next/swc-linux-arm64-musl" "13.3.1-canary.15"
-    "@next/swc-linux-x64-gnu" "13.3.1-canary.15"
-    "@next/swc-linux-x64-musl" "13.3.1-canary.15"
-    "@next/swc-win32-arm64-msvc" "13.3.1-canary.15"
-    "@next/swc-win32-ia32-msvc" "13.3.1-canary.15"
-    "@next/swc-win32-x64-msvc" "13.3.1-canary.15"
+    "@next/swc-darwin-arm64" "13.3.1"
+    "@next/swc-darwin-x64" "13.3.1"
+    "@next/swc-linux-arm64-gnu" "13.3.1"
+    "@next/swc-linux-arm64-musl" "13.3.1"
+    "@next/swc-linux-x64-gnu" "13.3.1"
+    "@next/swc-linux-x64-musl" "13.3.1"
+    "@next/swc-win32-arm64-msvc" "13.3.1"
+    "@next/swc-win32-ia32-msvc" "13.3.1"
+    "@next/swc-win32-x64-msvc" "13.3.1"
 
 "node-fetch@2.6.7":
   "integrity" "sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ=="
