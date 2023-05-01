@@ -1,18 +1,46 @@
 "use client";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { db } from "../../firebase-config";
 import Summarise from "../../components/orderPage/Summarise";
 import { FaTruck, FaBox } from "react-icons/fa";
+import {
+  setAddress,
+  setCity,
+  setDelivery,
+  setEmail,
+  setName,
+  setPayment,
+  setPhone,
+  setZipCode,
+} from "../../features/order/OrderSlice";
 
 function Page() {
+  const delivery = useSelector((state) => state.order.delivery);
+  const payment = useSelector((state) => state.order.payment);
   const [cartProdsArr, setCartProdsArr] = useState([]);
-  const [deliveryOption, setDeliveryOption] = useState("kurier");
+  const [deliveryOption, setDeliveryOption] = useState(delivery);
   const [deliveryDay, setDeliveryDay] = useState("");
   const [buyingAsPerson, setBuyingAsPerson] = useState("person");
+  const [paymentOption, setPaymentOption] = useState(payment);
   const [checkbox, setCheckbox] = useState(false);
+
+  const [inputNameValue, setInputNameValue] = useState("");
+  const [inputAddressValue, setInputAddressValue] = useState("");
+  const [inputZipCodeValue, setInputZipCodeValue] = useState("");
+  const [inputCityValue, setInputCityValue] = useState("");
+  const [inputPhoneValue, setInputPhoneValue] = useState("");
+  const [inputEmailValue, setInputEmailValue] = useState("");
+
+  const orderingPerson = useSelector((state) => state.order.name);
+  const address = useSelector((state) => state.order.address);
+  const zipCode = useSelector((state) => state.order.zipcode);
+  const city = useSelector((state) => state.order.city);
+  const phone = useSelector((state) => state.order.phone);
+  const email = useSelector((state) => state.order.email);
   const cartID = useSelector((state) => state.cartProds.cartIDs);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     let cartProdsTempArr = [];
@@ -33,6 +61,11 @@ function Page() {
     }
   }, [cartID]);
 
+  useEffect(() => {
+    dispatch(setDelivery(deliveryOption));
+    dispatch(setPayment(paymentOption));
+  }, [deliveryOption, dispatch, paymentOption]);
+
   const handleDeliveryChoose = (e) => {
     setDeliveryOption(e.target.value);
   };
@@ -43,6 +76,34 @@ function Page() {
 
   const handleCheckbox = () => {
     setCheckbox(!checkbox);
+  };
+
+  const handlePaymentOption = (e) => {
+    setPaymentOption(e.target.value);
+  };
+
+  const handleInputsValue = (e, type) => {
+    if (type === "name") {
+      setInputNameValue(e.target.value);
+      dispatch(setName(e.target.value));
+    } else if (type === "address") {
+      setInputAddressValue(e.target.value);
+      dispatch(setAddress(e.target.value));
+    } else if (type === "zipcode") {
+      setInputZipCodeValue(e.target.value);
+      dispatch(setZipCode(e.target.value));
+    } else if (type === "city") {
+      setInputCityValue(e.target.value);
+      dispatch(setCity(e.target.value));
+    } else if (type === "phone") {
+      let tempvalue = e.target.value;
+      let slicevalue = tempvalue.slice(0, 9);
+      setInputPhoneValue(slicevalue);
+      dispatch(setPhone(slicevalue));
+    } else if (type === "email") {
+      setInputEmailValue(e.target.value);
+      dispatch(setEmail(e.target.value));
+    }
   };
 
   useEffect(() => {
@@ -225,36 +286,48 @@ function Page() {
                 type="text"
                 placeholder="Imię i nazwisko"
                 autoComplete="name"
+                onChange={(e) => handleInputsValue(e, "name")}
+                value={orderingPerson}
                 className="outline-none border-none bg-zinc-700 rounded-xl w-96 h-10 pl-3 mb-5"
               />
               <input
                 type="text"
                 placeholder="Ulica i numer"
                 autoComplete="address-line1"
+                onChange={(e) => handleInputsValue(e, "address")}
+                value={address}
                 className="outline-none border-none bg-zinc-700 rounded-xl w-96 h-10 pl-3 mb-5"
               />
               <input
                 type="text"
                 placeholder="Kod pocztowy"
                 autoComplete="postal-code"
+                onChange={(e) => handleInputsValue(e, "zipcode")}
+                value={zipCode}
                 className="outline-none border-none bg-zinc-700 rounded-xl w-96 h-10 pl-3 mb-5"
               />
               <input
                 type="text"
                 placeholder="Miejscowość"
                 autoComplete="address-level2"
+                onChange={(e) => handleInputsValue(e, "city")}
+                value={city}
                 className="outline-none border-none bg-zinc-700 rounded-xl w-96 h-10 pl-3 mb-5"
               />
               <input
-                type="text"
+                type="number"
                 placeholder="Telefon"
                 autoComplete="tel"
+                onChange={(e) => handleInputsValue(e, "phone")}
+                value={phone}
                 className="outline-none border-none bg-zinc-700 rounded-xl w-96 h-10 pl-3 mb-5"
               />
               <input
                 type="text"
                 placeholder="E-mail"
                 autoComplete="email"
+                onChange={(e) => handleInputsValue(e, "email")}
+                value={email}
                 className="outline-none border-none bg-zinc-700 rounded-xl w-96 h-10 pl-3 mb-5"
               />
             </div>
@@ -303,7 +376,13 @@ function Page() {
             <label className={`w-3/4 border flex h-12 `}>
               <div className="flex w-full justify-center items-center pl-2">
                 <div className="flex w-3/4">
-                  <input type="radio" name="payment" value="dotpay" />
+                  <input
+                    onChange={handlePaymentOption}
+                    type="radio"
+                    name="payment"
+                    value="dotpay"
+                    checked={paymentOption == "dotpay"}
+                  />
                   <p className="pl-2">
                     <span className="font-medium">Płatność online</span>
                     (bezpłatnie)
@@ -315,7 +394,13 @@ function Page() {
             <label className={`w-3/4 border flex h-12 `}>
               <div className="flex w-full items-center pl-2">
                 <div className="flex w-3/4">
-                  <input type="radio" name="payment" value="card" />
+                  <input
+                    onChange={handlePaymentOption}
+                    type="radio"
+                    name="payment"
+                    value="card"
+                    checked={paymentOption == "card"}
+                  />
                   <p className="pl-2">
                     <span className="font-medium">Karta płatnicza online</span>
                     (bezpłatnie)
@@ -327,7 +412,13 @@ function Page() {
             <label className={`w-3/4 border flex h-12 `}>
               <div className="flex w-full items-center pl-2">
                 <div className="flex w-3/4">
-                  <input type="radio" name="payment" value="blik" />
+                  <input
+                    onChange={handlePaymentOption}
+                    type="radio"
+                    name="payment"
+                    value="blik"
+                    checked={paymentOption == "blik"}
+                  />
                   <p className="pl-2">
                     <span className="font-medium">BLIK</span>
                     (bezpłatnie)
@@ -339,7 +430,13 @@ function Page() {
             <label className={`w-3/4 border flex h-12 `}>
               <div className="flex w-full items-center pl-2">
                 <div className="flex w-3/4">
-                  <input type="radio" name="payment" value="blik" />
+                  <input
+                    onChange={handlePaymentOption}
+                    type="radio"
+                    name="payment"
+                    value="transfer"
+                    checked={paymentOption == "transfer"}
+                  />
                   <p className="pl-2">
                     <span className="font-medium">Przelew tradycyjny</span>
                     (bezpłatnie)
