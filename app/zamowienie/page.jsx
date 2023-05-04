@@ -4,9 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { db } from "../../firebase-config";
 import Summarise from "../../components/orderPage/Summarise";
-import { FaTruck, FaBox } from "react-icons/fa";
+import { FaTruck, FaBox, FaChessKing } from "react-icons/fa";
 import {
   setAddress,
+  setBuyingAs,
   setCity,
   setDelivery,
   setEmail,
@@ -14,15 +15,17 @@ import {
   setPayment,
   setPhone,
   setZipCode,
+  setDeliveryDate,
 } from "../../features/order/OrderSlice";
 
 function Page() {
   const delivery = useSelector((state) => state.order.delivery);
   const payment = useSelector((state) => state.order.payment);
+  const buyingAs = useSelector((state) => state.order.buyingAs);
   const [cartProdsArr, setCartProdsArr] = useState([]);
   const [deliveryOption, setDeliveryOption] = useState(delivery);
   const [deliveryDay, setDeliveryDay] = useState("");
-  const [buyingAsPerson, setBuyingAsPerson] = useState("person");
+  const [buyingAsPerson, setBuyingAsPerson] = useState(buyingAs);
   const [paymentOption, setPaymentOption] = useState(payment);
   const [checkbox, setCheckbox] = useState(false);
 
@@ -64,7 +67,8 @@ function Page() {
   useEffect(() => {
     dispatch(setDelivery(deliveryOption));
     dispatch(setPayment(paymentOption));
-  }, [deliveryOption, dispatch, paymentOption]);
+    dispatch(setBuyingAs(buyingAsPerson));
+  }, [deliveryOption, dispatch, paymentOption, buyingAsPerson]);
 
   const handleDeliveryChoose = (e) => {
     setDeliveryOption(e.target.value);
@@ -122,6 +126,15 @@ function Page() {
         month: "2-digit",
         day: "2-digit",
       })
+    );
+    dispatch(
+      setDeliveryDate(
+        deliDate.toLocaleDateString("pl-PL", {
+          weekday: "long",
+          month: "2-digit",
+          day: "2-digit",
+        })
+      )
     );
   }, []);
 
@@ -374,21 +387,21 @@ function Page() {
           <div>
             <p className="font-medium text-2xl mt-3">Płatność:</p>
             <label className={`w-3/4 border flex h-12 `}>
-              <div className="flex w-full justify-center items-center pl-2">
-                <div className="flex w-3/4">
+              <div className="flex w-full items-center pl-2">
+                <div className="flex">
                   <input
                     onChange={handlePaymentOption}
                     type="radio"
                     name="payment"
-                    value="dotpay"
-                    checked={paymentOption == "dotpay"}
+                    value="googlePay"
+                    checked={paymentOption == "googlePay"}
                   />
                   <p className="pl-2">
-                    <span className="font-medium">Płatność online</span>
+                    <span className="font-medium">Płatność GooglePay</span>
                     (bezpłatnie)
                   </p>
                 </div>
-                <div className="w-1/4 flex items-center justify-end pr-5 text-2xl"></div>
+                {/* <div className="w-1/4 flex items-center justify-end pr-5 text-2xl"></div> */}
               </div>
             </label>
             <label className={`w-3/4 border flex h-12 `}>
@@ -406,7 +419,6 @@ function Page() {
                     (bezpłatnie)
                   </p>
                 </div>
-                <div className="w-1/4 flex items-center justify-end pr-5 text-2xl"></div>
               </div>
             </label>
             <label className={`w-3/4 border flex h-12 `}>
@@ -424,7 +436,6 @@ function Page() {
                     (bezpłatnie)
                   </p>
                 </div>
-                <div className="w-1/4 flex items-center justify-end pr-5 text-2xl"></div>
               </div>
             </label>
             <label className={`w-3/4 border flex h-12 `}>
@@ -442,7 +453,6 @@ function Page() {
                     (bezpłatnie)
                   </p>
                 </div>
-                <div className="w-1/4 flex items-center justify-end pr-5 text-2xl"></div>
               </div>
             </label>
           </div>

@@ -8,8 +8,10 @@ const initialState = {
   phone: "",
   email: "",
   delivery: "kurier",
-  payment: "dotpay",
+  payment: "googlePay",
+  buyingAs: "person",
   summaryPrice: 0,
+  deliveryDay: "",
 };
 
 export const orderSlice = createSlice({
@@ -43,6 +45,12 @@ export const orderSlice = createSlice({
     setSummaryPrice: (state, action) => {
       state.summaryPrice = action.payload;
     },
+    setBuyingAs: (state, action) => {
+      state.buyingAs = action.payload;
+    },
+    setDeliveryDate: (state, action) => {
+      state.deliveryDay = action.payload;
+    },
   },
 });
 
@@ -56,6 +64,8 @@ export const {
   setDelivery,
   setPayment,
   setSummaryPrice,
+  setBuyingAs,
+  setDeliveryDate,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

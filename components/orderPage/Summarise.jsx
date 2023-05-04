@@ -32,7 +32,7 @@ function Summarise({ cart }) {
     if (delivery === "kurier") {
       setDeliveryPrice(20);
     }
-  }, []);
+  }, [delivery]);
 
   const goToSummaryPage = () => {
     dispatch(setSummaryPrice(sumPrice + deliveryPrice));
