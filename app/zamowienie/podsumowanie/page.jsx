@@ -18,17 +18,15 @@ import przelewy from "../../../images/logo_przelewy24.png";
 function Page() {
   const delivery = useSelector((state) => state.order.delivery);
   const payment = useSelector((state) => state.order.payment);
-  const sumPrice = useSelector((state) => state.order.summaryPrice);
+  // const sumPrice = useSelector((state) => state.order.summaryPrice);
   const buyingAs = useSelector((state) => state.order.buyingAs);
-  const orderingPerson = useSelector((state) => state.order.name);
-  const address = useSelector((state) => state.order.address);
-  const zipCode = useSelector((state) => state.order.zipcode);
-  const city = useSelector((state) => state.order.city);
-  const phone = useSelector((state) => state.order.phone);
-  const email = useSelector((state) => state.order.email);
-  console.log(delivery);
-  console.log(payment);
-  console.log(sumPrice);
+  // const orderingPerson = useSelector((state) => state.order.name);
+  // const address = useSelector((state) => state.order.address);
+  // const zipCode = useSelector((state) => state.order.zipcode);
+  // const city = useSelector((state) => state.order.city);
+  // const phone = useSelector((state) => state.order.phone);
+  // const email = useSelector((state) => state.order.email);
+  const info = useSelector((state) => state.order.addressInformations);
   return (
     <>
       <div className="bg-zinc-900 pt-6 pb-6">
@@ -83,9 +81,7 @@ function Page() {
             <p className="font-medium text-2xl mb-3">Adres dostawy</p>
             <div className="flex flex-col w-3/4 border py-2 rounded-lg justify-center">
               <div className="flex h-7">
-                <div className="w-4/5 ml-5 mr-16 font-medium">
-                  {orderingPerson}
-                </div>
+                <div className="w-4/5 ml-5 mr-16 font-medium">{info.name}</div>
                 <div className="flex">
                   <Link className="mr-5" href={"/zamowienie"}>
                     <p className="cursor-pointer hover:underline decoration-teal-500 underline-offset-4">
@@ -95,16 +91,16 @@ function Page() {
                 </div>
               </div>
               <div className="ml-5">
-                <p>{address}</p>
+                <p>{info.address}</p>
                 <p>
-                  {zipCode} {city}
+                  {info.zipCode} {info.city}
                 </p>
-                <p>e-mail: {email}</p>
-                <p>tel. {phone}</p>
+                <p>e-mail: {info.email}</p>
+                <p>tel. {info.phone}</p>
               </div>
             </div>
           </div>
-          <div>
+          {/* <div>
             <p className="font-medium text-2xl mb-3">Płatność</p>
             <div className="flex w-3/4 border h-16 rounded-lg items-center">
               {payment == "googlePay" ? (
@@ -147,7 +143,7 @@ function Page() {
                 {payment == "card" ? (
                   <p className="font-medium ml-5">Karta płatnicza online</p>
                 ) : null}
-                {payment == "card" ? (
+                {payment == "blik" ? (
                   <p className="font-medium ml-5">Płatność BLIK</p>
                 ) : null}
                 {payment == "transfer" ? (
@@ -162,7 +158,7 @@ function Page() {
                 </Link>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         <SummaryPanel />
       </div>

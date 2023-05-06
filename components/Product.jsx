@@ -12,8 +12,17 @@ function Product({ item }) {
   const likedID = useSelector((state) => state.likedProds.likedIDs);
   const dispatch = useDispatch();
   const [listOfLikedIDs, setListOfLikedIDs] = useState([]);
-  const { Desc, Category, Photo, Price, Quantity, Title, id, ...newItem } =
-    item;
+  const {
+    Desc,
+    Category,
+    Photo,
+    Price,
+    Quantity,
+    Title,
+    id,
+    priceID,
+    ...newItem
+  } = item;
 
   let shortDesc = [];
   for (const key in newItem) {

@@ -4,7 +4,11 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { MdArrowForwardIos } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { setSummaryPrice } from "../../features/order/OrderSlice";
+import {
+  setAddressInformations,
+  setSummaryPrice,
+} from "../../features/order/OrderSlice";
+import { setCart } from "../../features/cart/CartSlice";
 
 function Summarise({ cart }) {
   const [showError, setShowError] = useState(false);
@@ -26,6 +30,7 @@ function Summarise({ cart }) {
       temp += parseInt(item.Price) * item.qty;
     });
     setSumPrice(temp);
+    dispatch(setCart(JSON.stringify(cart)));
   }, [cart]);
 
   useEffect(() => {
@@ -35,6 +40,16 @@ function Summarise({ cart }) {
   }, [delivery]);
 
   const goToSummaryPage = () => {
+    dispatch(
+      setAddressInformations({
+        name: orderingPerson,
+        address: address,
+        zipCode: zipCode,
+        city: city,
+        phone: phone,
+        email: email,
+      })
+    );
     dispatch(setSummaryPrice(sumPrice + deliveryPrice));
     if (
       orderingPerson !== "" &&

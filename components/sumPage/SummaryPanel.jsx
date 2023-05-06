@@ -2,17 +2,28 @@ import React, { useEffect, useState } from "react";
 import { FaTruck, FaBox } from "react-icons/fa";
 import { MdArrowForwardIos } from "react-icons/md";
 import { useSelector } from "react-redux";
+import { checkout } from "../../app/api/order";
 
 function SummaryPanel() {
   const [deliveryPrice, setDeliveryPrice] = useState(0);
+  const [lineItems, setLineItems] = useState(null);
   const delivery = useSelector((state) => state.order.delivery);
   const sumPrice = useSelector((state) => state.order.summaryPrice);
   const deliDay = useSelector((state) => state.order.deliveryDay);
+  const cart = JSON.parse(localStorage.getItem("cart"));
   useEffect(() => {
     if (delivery === "kurier") {
       setDeliveryPrice(20);
     }
   }, [delivery]);
+
+  useEffect(() => {
+    const lineItems = cart.map(({ qty: quantity, priceID: price }) => ({
+      price,
+      quantity,
+    }));
+    setLineItems(lineItems);
+  }, []);
 
   return (
     <div className="lg:w-[30%] flex flex-col items-center top-5 sticky h-full">
@@ -58,14 +69,14 @@ function SummaryPanel() {
           </div>
         </div>
         <div className="flex justify-center">
-          <div className="bg-teal-500 hover:bg-teal-600 transition-all text-lg cursor-pointer p-2 rounded-full flex justify-center items-center my-5 w-4/5">
+          <div
+            onClick={() => checkout(lineItems)}
+            className="bg-teal-500 hover:bg-teal-600 transition-all text-lg cursor-pointer p-2 rounded-full flex justify-center items-center my-5 w-4/5"
+          >
             Kupuję i płacę <MdArrowForwardIos className="mt-1 ml-2" />
           </div>
         </div>
       </div>
-      {/* <p className={`text-red-500 pt-3 ${showError ? "block" : "hidden"}`}>
-        UZUPEŁNIJ WSZYSTKIE DANE
-      </p> */}
     </div>
   );
 }

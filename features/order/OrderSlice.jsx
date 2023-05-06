@@ -1,5 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+let summaryPrice = 0;
+if (typeof window !== "undefined") {
+  summaryPrice = localStorage.getItem("summaryPrice");
+}
+if (summaryPrice === null) {
+  localStorage.setItem("summaryPrice", 0);
+}
+let deliveryDate = "";
+if (typeof window !== "undefined") {
+  deliveryDate = localStorage.getItem("deliveryDate");
+}
+if (deliveryDate === null) {
+  localStorage.setItem("deliveryDate", "");
+}
+let initialAddressInfo = [];
+if (typeof window !== "undefined") {
+  initialAddressInfo = JSON.parse(localStorage.getItem("addressInformations"));
+}
+
+if (initialAddressInfo === null) {
+  initialAddressInfo = [];
+  localStorage.setItem("addressInformations", JSON.stringify([]));
+}
+
 const initialState = {
   name: "",
   address: "",
@@ -10,8 +34,9 @@ const initialState = {
   delivery: "kurier",
   payment: "googlePay",
   buyingAs: "person",
-  summaryPrice: 0,
-  deliveryDay: "",
+  summaryPrice: summaryPrice,
+  deliveryDay: deliveryDate,
+  addressInformations: initialAddressInfo,
 };
 
 export const orderSlice = createSlice({
@@ -44,12 +69,21 @@ export const orderSlice = createSlice({
     },
     setSummaryPrice: (state, action) => {
       state.summaryPrice = action.payload;
+      localStorage.setItem("summaryPrice", action.payload);
     },
     setBuyingAs: (state, action) => {
       state.buyingAs = action.payload;
     },
     setDeliveryDate: (state, action) => {
       state.deliveryDay = action.payload;
+      localStorage.setItem("deliveryDate", action.payload);
+    },
+    setAddressInformations: (state, action) => {
+      state.addressInformations = action.payload;
+      localStorage.setItem(
+        "addressInformations",
+        JSON.stringify(action.payload)
+      );
     },
   },
 });
@@ -66,6 +100,7 @@ export const {
   setSummaryPrice,
   setBuyingAs,
   setDeliveryDate,
+  setAddressInformations,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

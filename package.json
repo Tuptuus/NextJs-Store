@@ -15,7 +15,9 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@next/font": "13.0.7",
     "@reduxjs/toolkit": "^1.9.1",
+    "@stripe/stripe-js": "^1.52.1",
     "encoding": "^0.1.13",
+    "env": "^0.0.2",
     "eslint": "8.30.0",
     "eslint-config-next": "13.0.7",
     "firebase": "^9.15.0",
@@ -23,7 +25,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
-    "react-redux": "^8.0.5"
+    "react-redux": "^8.0.5",
+    "stripe": "^12.4.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

@@ -42,13 +42,13 @@ function Footer() {
           <span>Accepted Payments: </span>
           <FaCcVisa className="text-4xl ml-2" />
           <FaCcMastercard className="text-4xl ml-2" />
-          <Image
+          {/* <Image
             className="ml-2"
             width={50}
             height={50}
             alt="BLIK"
             src={blik}
-          />
+          /> */}
           <FaGooglePay className="text-4xl ml-2" />
         </div>
       </div>

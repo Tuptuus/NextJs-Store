@@ -29,12 +29,12 @@ function Page() {
   const [paymentOption, setPaymentOption] = useState(payment);
   const [checkbox, setCheckbox] = useState(false);
 
-  const [inputNameValue, setInputNameValue] = useState("");
-  const [inputAddressValue, setInputAddressValue] = useState("");
-  const [inputZipCodeValue, setInputZipCodeValue] = useState("");
-  const [inputCityValue, setInputCityValue] = useState("");
-  const [inputPhoneValue, setInputPhoneValue] = useState("");
-  const [inputEmailValue, setInputEmailValue] = useState("");
+  // const [inputNameValue, setInputNameValue] = useState("");
+  // const [inputAddressValue, setInputAddressValue] = useState("");
+  // const [inputZipCodeValue, setInputZipCodeValue] = useState("");
+  // const [inputCityValue, setInputCityValue] = useState("");
+  // const [inputPhoneValue, setInputPhoneValue] = useState("");
+  // const [inputEmailValue, setInputEmailValue] = useState("");
 
   const orderingPerson = useSelector((state) => state.order.name);
   const address = useSelector((state) => state.order.address);
@@ -88,24 +88,24 @@ function Page() {
 
   const handleInputsValue = (e, type) => {
     if (type === "name") {
-      setInputNameValue(e.target.value);
+      // setInputNameValue(e.target.value);
       dispatch(setName(e.target.value));
     } else if (type === "address") {
-      setInputAddressValue(e.target.value);
+      // setInputAddressValue(e.target.value);
       dispatch(setAddress(e.target.value));
     } else if (type === "zipcode") {
-      setInputZipCodeValue(e.target.value);
+      // setInputZipCodeValue(e.target.value);
       dispatch(setZipCode(e.target.value));
     } else if (type === "city") {
-      setInputCityValue(e.target.value);
+      // setInputCityValue(e.target.value);
       dispatch(setCity(e.target.value));
     } else if (type === "phone") {
       let tempvalue = e.target.value;
       let slicevalue = tempvalue.slice(0, 9);
-      setInputPhoneValue(slicevalue);
+      // setInputPhoneValue(slicevalue);
       dispatch(setPhone(slicevalue));
     } else if (type === "email") {
-      setInputEmailValue(e.target.value);
+      // setInputEmailValue(e.target.value);
       dispatch(setEmail(e.target.value));
     }
   };
@@ -384,7 +384,7 @@ function Page() {
               />
             </div>
           </div>
-          <div>
+          {/* <div>
             <p className="font-medium text-2xl mt-3">Płatność:</p>
             <label className={`w-3/4 border flex h-12 `}>
               <div className="flex w-full items-center pl-2">
@@ -401,7 +401,6 @@ function Page() {
                     (bezpłatnie)
                   </p>
                 </div>
-                {/* <div className="w-1/4 flex items-center justify-end pr-5 text-2xl"></div> */}
               </div>
             </label>
             <label className={`w-3/4 border flex h-12 `}>
@@ -455,7 +454,7 @@ function Page() {
                 </div>
               </div>
             </label>
-          </div>
+          </div> */}
         </div>
         <Summarise cart={cartProdsArr} />
       </div>
