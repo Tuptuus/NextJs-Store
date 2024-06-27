@@ -10,7 +10,11 @@ function SummaryPanel() {
   const delivery = useSelector((state) => state.order.delivery);
   const sumPrice = useSelector((state) => state.order.summaryPrice);
   const deliDay = useSelector((state) => state.order.deliveryDay);
-  const cart = JSON.parse(localStorage.getItem("cart"));
+  let cart = null;
+  if (typeof window !== "undefined") {
+    cart = JSON.parse(localStorage.getItem("cart"));
+  }
+  // const cart = JSON.parse(localStorage.getItem("cart"));
   useEffect(() => {
     if (delivery === "kurier") {
       setDeliveryPrice(20);
@@ -23,6 +27,7 @@ function SummaryPanel() {
       quantity,
     }));
     setLineItems(lineItems);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

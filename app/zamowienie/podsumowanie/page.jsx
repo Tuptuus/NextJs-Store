@@ -1,31 +1,13 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import {
-  FaTruck,
-  FaUser,
-  FaBriefcase,
-  FaCcVisa,
-  FaCcMastercard,
-  FaGooglePay,
-} from "react-icons/fa";
+import { FaTruck, FaUser, FaBriefcase } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import SummaryPanel from "../../../components/sumPage/SummaryPanel";
-import Image from "next/image";
-import blik from "../../../images/blik.png";
-import przelewy from "../../../images/logo_przelewy24.png";
 
 function Page() {
   const delivery = useSelector((state) => state.order.delivery);
-  const payment = useSelector((state) => state.order.payment);
-  // const sumPrice = useSelector((state) => state.order.summaryPrice);
   const buyingAs = useSelector((state) => state.order.buyingAs);
-  // const orderingPerson = useSelector((state) => state.order.name);
-  // const address = useSelector((state) => state.order.address);
-  // const zipCode = useSelector((state) => state.order.zipcode);
-  // const city = useSelector((state) => state.order.city);
-  // const phone = useSelector((state) => state.order.phone);
-  // const email = useSelector((state) => state.order.email);
   const info = useSelector((state) => state.order.addressInformations);
   return (
     <>
